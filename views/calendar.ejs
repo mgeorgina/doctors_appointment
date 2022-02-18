@@ -1,0 +1,118 @@
+<%- include("partials/header"); -%>
+
+<%
+const weekdaysHeader = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+const loop = ["7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
+const cart = [];
+let events = [];
+
+for (var l=0; l<loop.length; l++){
+
+  var appointments = {};
+
+  let oneRow = foundEvents.filter(function (e) {
+    return e.slot === loop[l]
+  });
+
+  if (oneRow.length>0) {
+    let rowNames = [], rowOrder = [];
+    for (var r=0; r<oneRow.length; r++){
+      rowNames.push(oneRow[r].name);
+      rowOrder.push(oneRow[r].date.getDay())
+    };
+
+    let rowDict = {};
+    rowOrder.forEach((key, val) => rowDict[key] = rowNames[val]);
+
+    let entireRow = {"1": "", "2": "", "3": "", "4": "", "5": ""};
+    let keys = Object.keys(rowDict)
+    keys.map(x=>{
+      entireRow[x] =  rowDict[x]
+    });
+
+    events = Object.keys(entireRow).map(function(key){
+        return entireRow[key];
+    });
+
+  } else {
+    events = ["", "", "", "", ""];
+  }
+
+  appointments.time = loop[l];
+  appointments.events = events;
+  cart.push(appointments);
+}
+
+ %>
+
+<body>
+  <div class="arrow-div">
+    <form action="/calendar" method="post">
+      <button class="btn btn-sm btn-arrow" type="submit" name="button" value="back"> <i class="fas fa-arrow-circle-left fa-2x"></i> </button>
+      <button class="btn btn-sm btn-arrow" type="submit" name="button" value="forward"> <i class="fas fa-arrow-circle-right fa-2x"></i> </button>
+    </form>
+  </div>
+  <br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-10 table-responsive">
+        <table class="table table-bordered table-hover table-sm">
+          <thead>
+            <tr>
+              <% weekdaysHeader.forEach(function(day) { %>
+                <td> <%= day %> </td>
+            <%  }) %>
+            </tr>
+            <tr>
+              <td></td>
+              <% weekDates.forEach(function(date){ %>
+              <td> <%= date %> </td>
+              <% }) %>
+            </tr>
+          </thead>
+          <tbody>
+            <% cart.forEach(function(c){ %>
+            <tr>
+              <td class="time-td"> <%= c.time %> </td>
+              <% c.events.forEach(function(ce){ %>
+              <td style=" <%=ce.length>0 ? 'background-color: #907fa4' : '' %> ">
+                <%= ce %>
+                <% if (ce.length>0) { %>
+                  <form class="delete-form" action="/calendar" method="post">
+                    <button class="btn btn-sm delete-btn" type="submit" name="button" value='delete + <%=weekDates[0]%> + <%=c.events%> + <%=c.time%> + <%=ce%> +'> <i class="fas fa-trash"></i> </button>
+                  </form>
+                <% } %>
+              </td>
+              <% }) %>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-2 form-div">
+        <p>New appointment</p>
+        <hr>
+        <form action="/calendar" method="post">
+          <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input class="form-control form-control-sm" type="date" name="eventDate" min="2021-01-01" max="2023-12-31">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Time</label>
+            <select class="form-control form-control-sm" name="eventTime">
+              <% loop.forEach(function(l) { %>
+                <option value= <%= l %> > <%= l %> </option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control form-control-sm" type="text" name="eventName">
+          </div>
+          <button class="btn btn-sm btn-add" type="submit" name="button" value="add"> <i class="fas fa-plus-circle fa-2x"></i> </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <%- include("partials/footer"); -%>

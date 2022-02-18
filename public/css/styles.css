@@ -1,0 +1,123 @@
+html {
+  background-color: #E4E9FD;
+  background-image: -webkit-linear-gradient(65deg, #a6d6d6 50%, #E4E9FD 50%);
+  min-height: 1000px;
+}
+
+body {
+  background-color: #E4E9FD;
+}
+
+table {
+  background-color: white;
+}
+
+thead {
+  background-color: #a6d6d6;
+  text-align: center;
+}
+
+td {
+  color: white;
+}
+
+thead td {
+  color: white;
+}
+
+a {
+  color: inherit;
+  padding: 5px;
+}
+
+p {
+  color: grey;
+  text-align: center;
+  padding-top: 10px;
+}
+
+hr {
+  border-style: none;
+  border-top-style: dotted;
+  border-color: grey;
+  border-width: 2px;
+}
+
+.arrow-div {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+}
+
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: grey;
+    background-color: #a6d6d6;
+}
+
+.navbar-brand {
+  margin-bottom: 0;
+}
+
+.navbar-nav li {
+  display: inline;
+}
+
+.navbar-nav li a:hover {
+    color: #1abc9c;
+}
+
+.btn-arrow {
+  color: #afb9c8;
+  border: 0;
+}
+
+.btn-add {
+  border: 0;
+  color: white;
+}
+
+.form-label {
+  color: grey;
+}
+
+.form-div {
+  background-color: #a6d6d6;
+}
+
+.time-td {
+  color: grey;
+}
+
+.delete-btn {
+  color: #E4E9FD;
+  float: right;
+  border: 0
+}
+
+.delete-btn:hover {
+  color: #afb9c8;
+}
+
+.btn-arrow:hover {
+  color: white;
+}
+
+.btn-add:hover {
+  color: #afb9c8;
+}
+
+.delete-form {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
